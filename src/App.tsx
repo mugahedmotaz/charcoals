@@ -178,7 +178,7 @@ const App: React.FC = () => {
     const orderLines = cart.map((i, idx) =>
       `*${idx + 1}. ${i.name}*\n  - الكمية: ${i.qty || 1}\n  - سعر الوحدة: ${i.price || i.beef || 0} جنيه\n  - الإجمالي: ${(i.price || i.beef || 0) * (i.qty || 1)} جنيه`
     ).join("\n-----------------------------\n");
-    const orderText = `*طلب جديد من موقع شاركلز*\n\n${orderLines}\n\n*الإجمالي الكلي:* ${total} جنيه\n\n*العنوان:* بورتسودان - شارع الجمهورية، بالقرب من مستشفى السلام\n\n*يرجى تأكيد الطلب أو التواصل لأي استفسار. شكراً لاختياركم شاركلز! 🥪🔥`;
+    const orderText = `* طلب جديد من موقع شاركلز برجر بورتسودان*\n\n${orderLines}\n\n*الإجمالي الكلي:* ${total} جنيه\n\n*العنوان:* بورتسودان - شارع الجمهورية، بالقرب من مستشفى السلام\n\n*يرجى تأكيد الطلب أو التواصل لأي استفسار. شكراً لاختياركم شاركلز! 🥪🔥`;
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}`;
     window.open(url, '_blank');
     setCart([]); // تفريغ السلة بعد الطلب
@@ -191,6 +191,9 @@ const App: React.FC = () => {
 
   // حالة نافذة اختيار نوع البرجر
   const [burgerTypeModal, setBurgerTypeModal] = useState<{item: any, section: string} | null>(null);
+  // حالة نافذة إضافة تعليق
+  const [commentModal, setCommentModal] = useState<{item: any, section: string} | null>(null);
+  const [commentInput, setCommentInput] = useState("");
 
   // إضافة للسلة مع اختيار نوع البرجر
   function handleAddBurger(item: any, section: string) {
@@ -201,8 +204,23 @@ const App: React.FC = () => {
     const { item, section } = burgerTypeModal;
     const name = `${item.name} - ${type === 'beef' ? 'لحم' : 'فراخ'}`;
     const price = item[type];
-    addToCart({ name, price, type: section });
     setBurgerTypeModal(null);
+    setCommentModal({ item: { name, price, type: section }, section });
+    setCommentInput("");
+  }
+  // إضافة للسلة مع تعليق
+  function handleAddToCartWithComment(item: any, section?: string) {
+    setCommentModal({ item, section: section || item.type });
+    setCommentInput("");
+  }
+  function confirmAddToCartWithComment() {
+    if (!commentModal) return;
+    addToCart({ ...commentModal.item, comment: commentInput });
+    setCommentModal(null);
+    setCommentInput("");
+  }
+  function editComment(name: string, newComment: string) {
+    setCart(c => c.map(i => i.name === name ? { ...i, comment: newComment } : i));
   }
 
   return (
@@ -217,7 +235,7 @@ const App: React.FC = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <img src={Logo} alt="Charcoals Logo" className="w-10 h-10 sm:w-14 sm:h-14 object-contain drop-shadow-2xl border-2 border-[#fbbf24] bg-white/80 rounded-full" />
             <div className="flex flex-col">
-              <span className="text-base sm:text-lg md:text-2xl font-extrabold tracking-wider text-[#b91c1c]">شاركلز</span>
+              <span className="text-base sm:text-lg md:text-2xl font-extrabold tracking-wider text-[#b91c1c]">شاركلز  بورتسودان</span>
               <span className="text-xs sm:text-sm md:text-base text-[#f59e42] font-bold">Port Sudan - Since 2017</span>
             </div>
           </div>
@@ -380,6 +398,17 @@ const App: React.FC = () => {
                         <span className="font-bold text-black">{item.name}</span>
                         <span className="text-black font-bold">{(item.price || item.beef || 0) * (item.qty || 1)} جنيه</span>
                       </div>
+                      {typeof item.comment === 'string' && (
+                        <div className="flex items-center gap-2 text-xs text-gray-600">
+                          <span className="text-black">ملاحظة:</span>
+                          <input
+                            className="border rounded px-2 py-0.5 text-xs w-full max-w-[180px]"
+                            value={item.comment}
+                            onChange={e => editComment(item.name, e.target.value)}
+                            placeholder="تعليق للمنتج..."
+                          />
+                        </div>
+                      )}
                       <div className="flex justify-between items-center text-xs text-gray-600 gap-2">
                         <span className="text-black">{'الكمية: '}
                           <button className="mx-1 px-2 py-0.5 bg-[#ffd700] text-[#222] rounded" onClick={() => changeQty(item.name, (item.qty || 1) - 1)} disabled={item.qty <= 1}>-</button>
@@ -412,7 +441,7 @@ const App: React.FC = () => {
           <a href={callLink()} className={`px-4 py-2 rounded-lg font-bold shadow transition ${darkText} bg-[#f59e42] text-white hover:bg-[#d32f2f]`}>اتصل بنا</a>
           <a href={waLink('')} className={`px-4 py-2 rounded-lg font-bold shadow transition ${darkText} bg-[#25d366] text-white hover:bg-[#128c7e]`}>WhatsApp</a>
         </div>
-        <div className={`mt-2 text-xs sm:text-sm  text-white/80`}>العنوان: بورتسودان - شارع الجمهورية، بالقرب من مستشفى السلام</div>
+        <div className={`mt-2 text-xs sm:text-sm  text-white/80`}>العنوان: بورتسودان - شارع جامعه البحر الاحمر</div>
       </div>
       {/* نافذة اختيار نوع البرجر */}
       {burgerTypeModal && (
@@ -427,6 +456,23 @@ const App: React.FC = () => {
               <button className="flex-1 px-0 py-3 rounded-lg bg-[#d32f2f] text-white font-bold text-lg shadow hover:bg-[#f59e42] transition" style={{minWidth:'100px'}} onClick={() => confirmBurgerType('beef')}>لحم</button>
               <button className="flex-1 px-0 py-3 rounded-lg bg-[#f59e42] text-white font-bold text-lg shadow hover:bg-[#d32f2f] transition" style={{minWidth:'100px'}} onClick={() => confirmBurgerType('chicken')}>فراخ</button>
             </div>
+          </div>
+        </div>
+      )}
+      {/* نافذة إدخال التعليق عند الإضافة للسلة */}
+      {commentModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-start pt-24 justify-center z-[9999]">
+          <div className="bg-white/90 rounded-2xl shadow-2xl p-6 w-full max-w-xs flex flex-col items-center relative">
+            <button className="absolute top-3 right-3 bg-[#f59e42] hover:bg-[#d32f2f] text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg text-xl transition" onClick={() => setCommentModal(null)} title="إغلاق">&times;</button>
+            <h3 className="text-xl font-bold mb-4 text-[#d32f2f]">أضف ملاحظة للمنتج (اختياري)</h3>
+            <input
+              className="border rounded px-3 py-2 mb-4 w-full text-base"
+              value={commentInput}
+              onChange={e => setCommentInput(e.target.value)}
+              placeholder="مثال: بدون صوص، زيادة جبنة..."
+              autoFocus
+            />
+            <button className="w-full py-2 rounded-lg bg-[#d32f2f] text-white font-bold text-lg shadow hover:bg-[#f59e42] transition" onClick={confirmAddToCartWithComment}>تأكيد الإضافة</button>
           </div>
         </div>
       )}
