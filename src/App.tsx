@@ -236,7 +236,7 @@ const App: React.FC = () => {
             <img src={Logo} alt="Charcoals Logo" className="w-10 h-10 sm:w-14 sm:h-14 object-contain drop-shadow-2xl border-2 border-[#fbbf24] bg-white/80 rounded-full" />
             <div className="flex flex-col">
               <span className="text-base sm:text-lg md:text-2xl font-extrabold tracking-wider text-[#b91c1c]">شاركلز  بورتسودان</span>
-              <span className="text-xs sm:text-sm md:text-base text-[#f59e42] font-bold">Port Sudan - Since 2017</span>
+              <span className="text-xs sm:text-sm md:text-base text-[#f59e42] font-bold">Charcoals - Portsudan</span>
             </div>
           </div>
           <div className="flex items-center gap-1 sm:gap-2">
@@ -253,7 +253,7 @@ const App: React.FC = () => {
           {/* إزالة الشعار من داخل الصفحة الرئيسية (يظهر فقط في الهيدر) */}
           {/* <img src={Logo} alt="Charcoals Logo" className="w-24 h-24 object-contain drop-shadow-2xl border-4 border-[#fbbf24] bg-white/80 rounded-full" /> */}
           <h1 className="text-3xl md:text-5xl font-extrabold text-center tracking-wider drop-shadow-lg" style={{color: '#d32f2f', letterSpacing: '2px'}}>قائمة طعام شاركلز</h1>
-          <span className="text-lg md:text-xl text-[#f59e42] font-bold drop-shadow-sm">Port Sudan - Since 2017</span>
+          <span className="text-lg md:text-xl text-[#f59e42] font-bold drop-shadow-sm">Charcoals - Portsudan </span>
         </div>
         {/* البحث والفلترة */}
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-between w-full">
