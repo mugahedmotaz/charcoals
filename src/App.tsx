@@ -5,6 +5,7 @@ import FavoriteButton from "./components/FavoriteButton";
 import CartButton from "./components/CartButton";
 import Logo from "./logo.png";
 
+
 const whatsappNumber = "249920486301";
 const phoneNumber = "0123456789";
 
@@ -12,16 +13,16 @@ const phoneNumber = "0123456789";
 const itemImages: Record<string, string> = {};
 
 const sandwiches = [
-  { name: "كلاسيك", beef: 7500, chicken: 8500 },
-  { name: "تشيز", beef: 8000, chicken: 9000 },
-  { name: "باربكيو", beef: 9000, chicken: 10000 },
-  { name: "هالبينو", beef: 9500, chicken: 10500 },
-  { name: "سيكريت", beef: 9000, chicken: 10000 },
-  { name: "ايشن", beef: 9000, chicken: 10000 },
-  { name: "إسموكي", beef: 10000, chicken: 11000 },
-  { name: "جوسي تشارلي", beef: 11000, chicken: 12000 },
-  { name: "دبل ميكس", beef: 12500, chicken: 13500 },
-  { name: "شاركلز", beef: 13000, chicken: 14000 },
+  { name: "كلاسيك", beef: 7500, chicken: 8500, content:"لحمه/فراخ +مايونيز+كاتشب+ بصل + خس"},
+  { name: "تشيز", beef: 8000, chicken: 9000, content:"لحمه/فراخ +مايونيز+كاتشب+ جبنه + بصل+ خس" },
+  { name: "باربكيو", beef: 9000, chicken: 10000, content:"لحمه/فراخ +مايونيز+كاتشب+ جبنه + باربكيو + بصل+ خس" },
+  { name: "هالبينو", beef: 9500, chicken: 10500, content:"لحمه/فراخ +مايونيز+ كاتشب+ جبنه + هالبينو+ بصل+ خس" },
+  { name: "سيكريت", beef: 9000, chicken: 10000, content:"لحمه/فراخ +مايونيز+كاتشب+ جبنه + سويت صوص+ بصل+ خس" },
+  { name: "ايشن", beef: 9000, chicken: 10000, content:"لحمه/فراخ +مايونيز+ جبنه + سويت صوص+ بصل+ خس" },
+  { name: "إسموكي", beef: 10000, chicken: 11000, content:"لحمة/فراخ + مايونيز + جبنة + صوص مدخن + بصل + خس" },
+  { name: "جوسي تشارلي", beef: 11000, chicken: 12000, content:"لحمه/فراخ +مايونيز+كاتشب+ جبنه + مارتدلا+ بصل+ خس" },
+  { name: "دبل ميكس", beef: 12500, chicken: 13500, content:"دبل قطعه بيرقر +مايونيز+ جبنه + اسبشل صوص+ بصل+ خس" },
+  { name: "شاركلز", beef: 13000, chicken: 14000, content:"لحمه/فراخ +مايونيز+كاتشب+ جبنه +شيدر صوص + بصل+ خس" },
 ];
 const combos = [
   { name: " كومبو كلاسيك", beef: 15500, chicken: 16500 },
