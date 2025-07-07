@@ -5,7 +5,6 @@ import FavoriteButton from "./components/FavoriteButton";
 import CartButton from "./components/CartButton";
 import Logo from "./logo.png";
 
-
 const whatsappNumber = "249920486301";
 const phoneNumber = "0123456789";
 
@@ -25,16 +24,16 @@ const sandwiches = [
   { name: "شاركلز", beef: 13000, chicken: 14000, content:"لحمه/فراخ +مايونيز+كاتشب+ جبنه +شيدر صوص + بصل+ خس" },
 ];
 const combos = [
-  { name: " كومبو كلاسيك", beef: 15500, chicken: 16500 },
-  { name:  " كومبو تشيز", beef: 16000, chicken: 17000 },
-  { name: " كومبو باربكيو", beef: 17000, chicken: 18000 },
-  { name: " كومبو هالبينو", beef: 17500, chicken: 18500 },
-  { name: " كومبو سيكريت", beef: 17000, chicken: 18000 },
-  { name: " كومبو ايشن", beef: 17000, chicken: 18000 },
-  { name: " كومبو إسموكي", beef: 18000, chicken: 19000 },
-  { name: "كومبو جوسي تشارلي", beef: 19000, chicken: 20000 },
-  { name: "كومبو دبل ميكس", beef: 20500, chicken: 21500 },
-  { name: "كومبو شاركلز", beef: 21000, chicken: 22000 },
+  { name: " كومبو كلاسيك", beef: 15500, chicken: 16500,  content:"لحمه/فراخ +مايونيز+كاتشب+ بصل + خس "},
+  { name:  " كومبو تشيز", beef: 16000, chicken: 17000, },
+  { name: " كومبو باربكيو", beef: 17000, chicken: 18000, },
+  { name: " كومبو هالبينو", beef: 17500, chicken: 18500, },
+  { name: " كومبو سيكريت", beef: 17000, chicken: 18000, },
+  { name: " كومبو ايشن", beef: 17000, chicken: 18000, },
+  { name: " كومبو إسموكي", beef: 18000, chicken: 19000, },
+  { name: "كومبو جوسي تشارلي", beef: 19000, chicken: 20000, },
+  { name: "كومبو دبل ميكس", beef: 20500, chicken: 21500, },
+  { name: "كومبو شاركلز", beef: 21000, chicken: 22000, },
 ];
 const extras = [
   { name: "قطعة لحم", price: 4000 },
@@ -177,9 +176,9 @@ const App: React.FC = () => {
   function handleOrder() {
     // رسالة واتساب منظمة واحترافية
     const orderLines = cart.map((i, idx) =>
-      `*${idx + 1}. ${i.name}*\n  - الكمية: ${i.qty || 1}\n  - سعر الوحدة: ${i.price || i.beef || 0} جنيه\n  - الإجمالي: ${(i.price || i.beef || 0) * (i.qty || 1)} جنيه`
+      `*${idx + 1}. ${i.name}*\n  - الكمية: ${i.qty || 1} التعليق - ${i.comment}.\n  - سعر الوحدة: ${i.price || i.beef || 0} جنيه\n  - الإجمالي: ${(i.price || i.beef || 0) * (i.qty || 1)} جنيه`
     ).join("\n-----------------------------\n");
-    const orderText = `* طلب جديد من موقع شاركلز برجر بورتسودان*\n\n${orderLines}\n\n*الإجمالي الكلي:* ${total} جنيه\n\n*العنوان:* بورتسودان - شارع جامعة البحر الاحمر\n\n*يرجى تأكيد الطلب أو التواصل لأي استفسار. شكراً لاختياركم شاركلز! 🥪🔥`;
+    const orderText = `* طلب جديد من موقع شاركلز - بورتسودان*\n\n${orderLines}\n\n*الإجمالي الكلي:* ${total} جنيه\n\n*العنوان:* بورتسودان - شارع جامعة البحر الاحمر\n\n*يرجى تأكيد الطلب أو التواصل لأي استفسار. شكراً لاختياركم شاركلز! 🥪🔥`;
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}`;
     window.open(url, '_blank');
     setCart([]); // تفريغ السلة بعد الطلب
@@ -300,7 +299,8 @@ const App: React.FC = () => {
                   <span className="text-lg font-semibold text-black">{item.name}</span>
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center gap-2 mt-2 md:mt-0 flex-wrap">
-                  <span className="text-base font-bold text-black">لحمة: {item.beef} | فراخ: {item.chicken} جنيه</span>
+                  <span className="text-base font-bold  text-black">لحمة: {item.beef} | فراخ: {item.chicken} جنيه</span>
+                    {/* <p className=" block bg-[#f59e42] text-black p-1 rounded-lg">{item.content}</p> */}
                   <button className="px-3 py-1 rounded-lg bg-[#f59e42] text-white text-base font-bold shadow-lg transition hover:bg-[#d32f2f] hover:scale-105 flex items-center justify-center" onClick={() => handleAddBurger(item, 'sandwiches')} title="أضف للسلة">
                     <span role="img" aria-label="cart"><img width="22" height="22" src="https://img.icons8.com/glyph-neue/64/shopping-cart.png" alt="shopping-cart"/></span>
                   </button>
